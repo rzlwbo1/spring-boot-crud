@@ -1,5 +1,6 @@
 package com.maybank.smartweb.controller;
 
+import com.maybank.smartweb.entity.Car;
 import com.maybank.smartweb.entity.Employee;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,7 +27,17 @@ public class HomeController {
     }
 
     @GetMapping("/car")
-    public String carPage() {
+    public String carPage(Model model) {
+
+        Car car = new Car();
+        car.setPabrikan("Honda");
+        car.setPrice(1000.00);
+        car.setType("Matic");
+        car.setColor("Blue");
+
+        model.addAttribute("car", car);
+        model.addAttribute("msg", "Ini data car");
+        System.out.println(car.toString());
         return "car";
     }
 

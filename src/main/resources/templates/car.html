@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Car Page</title>
@@ -7,6 +7,18 @@
 <body>
 
   <p>Carrrr woiii</p>
+
+  <p th:text="${msg}"></p>
+  <div id="container">
+      <label>Pabrikan : </label>
+      <span th:text="${car.pabrikan}"></span><br/>
+      <label>Tipe : </label>
+      <span th:text="${car.type}"></span><br/>
+      <label>Harga : </label>
+      <span th:text="${car.price}"></span><br/>
+      <label>Warna : </label>
+      <span th:text="${car.color}"></span><br/>
+  </div>
 
 </body>
 </html>
