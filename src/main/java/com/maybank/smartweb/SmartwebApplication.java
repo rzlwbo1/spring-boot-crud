@@ -7,14 +7,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @SpringBootApplication
-@Controller
+//@Controller
 public class SmartwebApplication {
 
-	@RequestMapping("/")
-	@ResponseBody
-	public String index() {
-		return "<h2><b>Spring Hello World</b></h2>";
-	}
+//	@RequestMapping("/")
+//	@ResponseBody
+//	public String index() {
+//		return "<h2><b>Spring Hello World</b></h2>";
+//	}
 
 	public static void main(String[] args) {
 		SpringApplication.run(SmartwebApplication.class, args);
