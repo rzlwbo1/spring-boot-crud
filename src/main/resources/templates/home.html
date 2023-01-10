@@ -8,15 +8,15 @@
 
     <h3>MVC Spring</h3>
     <p th:text="${springMessage}"></p>
-    <div id="container">
+    <div id="container" th:object="${employee}">
         <label>First Name : </label>
-        <span th:text="${employee.firstName}"></span><br/>
+        <span th:text="*{firstName}"></span><br/>
         <label>Last Name : </label>
-        <span th:text="${employee.lastName}"></span><br/>
+        <span th:text="*{lastName}"></span><br/>
         <label>Contact : </label>
-        <span th:text="${employee.contact}"></span><br/>
+        <span th:text="*{contact}"></span><br/>
         <label>Address : </label>
-        <span th:text="${employee.address}"></span><br/>
+        <span th:text="*{address}"></span><br/>
     </div>
 
 </body>
