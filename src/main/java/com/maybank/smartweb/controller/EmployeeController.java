@@ -46,11 +46,12 @@ public class EmployeeController {
     }
 
     @GetMapping("/delete")
-    public String delete(@RequestParam("id") Long id) {
+    public String delete(@RequestParam("id") Long id, RedirectAttributes attributes) {
         Optional<Employee> employee = this.employeeService.getEmployeeById(id);
         if (employee.isPresent()) {
             this.employeeService.delete(employee.get());
         }
+        attributes.addFlashAttribute("success", "Berhasil di delete");
         return "redirect:/employee";
     }
 }
