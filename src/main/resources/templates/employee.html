@@ -11,6 +11,13 @@
     <p th:text="${springMessage}"></p>
     <div id="data-collection" class="container">
 
+        <!-- Message -->
+
+        <div class="notification is-primary is-light" th:if="${success}">
+            <button class="delete"></button>
+             <p th:text="${success}"></p>
+        </div>
+
 
         <div id="add-employee" class="mt-4" style="width: 30%;">
             <form th:action="@{/employee/save}" method="post" th:object="${employeeForm}">
@@ -18,7 +25,7 @@
                 <div class="field">
                     <label class="label">First Name</label>
                     <div class="control">
-                        <input class="input" type="text" th:field="*{firstName}">
+                        <input class="input" type="text" th:field="*{firstName}" required>
                     </div>
                 </div>
 
@@ -66,6 +73,7 @@
                     <th>Last Name</th>
                     <th>Contact</th>
                     <th>Address</th>
+                    <th>Aksi</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -74,11 +82,29 @@
                     <td th:text="${employee.lastName}"></td>
                     <td th:text="${employee.contact}"></td>
                     <td th:text="${employee.address}"></td>
+                    <td>
+                        <button class="button is-danger" th:onclick="deleteData('[[${employee.id}]]')">delete</button>
+                    </td>
                 </tr>
                 </tbody>
             </table>
         </section>
     </div>
 
+
+    <script inline="javascript">
+        /*<![CDATA[*/
+        var baseUrl = /*[[@{/}]]*/ "";
+        /*]]>*/
+        function deleteData(data) {
+            var conf = confirm("are you sure?")
+            if(conf == true) {
+                window.location = baseUrl + "employee/delete?id="+data;
+            }
+
+            return false;
+        }
+    </script>
+    <script src="script.js"></script>
 </body>
 </html>
