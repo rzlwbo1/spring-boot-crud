@@ -5,7 +5,7 @@ public class Car {
     private Long id;
     private String pabrikan;
     private String type;
-    private Double price;
+    private double price;
     private String color;
 
     public Long getId() {
