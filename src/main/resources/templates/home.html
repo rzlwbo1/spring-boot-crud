@@ -8,16 +8,33 @@
 
     <h3>MVC Spring</h3>
     <p th:text="${springMessage}"></p>
-    <div id="container" th:object="${employee}">
-        <label>First Name : </label>
-        <span th:text="*{firstName}"></span><br/>
-        <label>Last Name : </label>
-        <span th:text="*{lastName}"></span><br/>
-        <label>Contact : </label>
-        <span th:text="*{contact}"></span><br/>
-        <label>Address : </label>
-        <span th:text="*{address}"></span><br/>
-    </div>
+
+<!--    untuk data nya singular atau tidak banyak/jamak-->
+
+<!--    <div id="container" th:object="${employee}">-->
+<!--        <label>First Name : </label>-->
+<!--        <span th:text="*{firstName}"></span><br/>-->
+<!--        <label>Last Name : </label>-->
+<!--        <span th:text="*{lastName}"></span><br/>-->
+<!--        <label>Contact : </label>-->
+<!--        <span th:text="*{contact}"></span><br/>-->
+<!--        <label>Address : </label>-->
+<!--        <span th:text="*{address}"></span><br/>-->
+<!--    </div>-->
+
+
+<!--    <div id="data-collection">-->
+<!--        <table border="1" cellpadding="2">-->
+<!--            <tr>-->
+<!--                <td>First Name</td>-->
+<!--                <td>Last Name</td>-->
+<!--            </tr>-->
+<!--            <tr th:each="employee : ${employees}">-->
+<!--                <td th:text="${employee.firstName}"></td>-->
+<!--                <td th:text="${employee.lastName}"></td>-->
+<!--            </tr>-->
+<!--        </table>-->
+<!--    </div>-->
 
 </body>
 </html>
