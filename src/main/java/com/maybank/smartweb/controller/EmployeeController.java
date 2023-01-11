@@ -4,6 +4,7 @@ import com.maybank.smartweb.entity.Employee;
 import com.maybank.smartweb.repository.EmployeeRepo;
 import com.maybank.smartweb.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -21,14 +22,18 @@ public class EmployeeController {
     private EmployeeService employeeService;
 
     @GetMapping
-    public String index(Model model) {
+    public String index(
+            @RequestParam(value = "pageNo", defaultValue = "0") int pageNo,
+            @RequestParam(value = "pageSize", defaultValue = "5") int pageSize,
+            @RequestParam(value = "sortField", defaultValue = "id") String sortField,
+            Model model) {
 
         // get all datas employee by service
-        List<Employee> employees = this.employeeService.getAll();
+        Page<Employee> employees = this.employeeService.getAllPaginate(pageNo, pageSize, sortField);
 
         String springMessage = "Hello view ini Employee";
 
-        model.addAttribute("employees", employees);
+        model.addAttribute("page", employees);
         model.addAttribute("springMessage", springMessage);
         model.addAttribute("employeeForm", new Employee());
 
@@ -39,13 +44,19 @@ public class EmployeeController {
 
     // handle save data dan edit data
     @PostMapping("/save")
-    public String save(@Valid @ModelAttribute("employeeForm") Employee employeeForm, BindingResult result, RedirectAttributes attributes, Model model) {
+    public String save(@Valid @ModelAttribute("employeeForm") Employee employeeForm,
+                       BindingResult result,
+                       RedirectAttributes attributes,
+                       @RequestParam(value = "pageNo", defaultValue = "0") int pageNo,
+                       @RequestParam(value = "pageSize", defaultValue = "5") int pageSize,
+                       @RequestParam(value = "sortField", defaultValue = "id") String sortField,
+                       Model model) {
 
         // kalo ada error dari inputan
         if (result.hasErrors()) {
 
-            List<Employee> employees = this.employeeService.getAll();
-            model.addAttribute("employees", employees);
+            Page<Employee> employees = this.employeeService.getAllPaginate(pageNo, pageSize, sortField);
+            model.addAttribute("page", employees);
 
             return "employee";
         }

@@ -66,10 +66,10 @@
         </div>
 
 
-        <section id="table-datas" class="mt-3">
+        <section id="table-datas" class="mt-6 mb-5">
             <table class="table is-hoverable is-fullwidth" >
                 <thead>
-                <tr>
+                <tr class="has-background-info">
                     <th>First Name</th>
                     <th>Last Name</th>
                     <th>Contact</th>
@@ -78,7 +78,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="employee : ${employees}">
+                <tr th:each="employee : ${page.content}">
                     <td th:text="${employee.firstName}"></td>
                     <td th:text="${employee.lastName}"></td>
                     <td th:text="${employee.contact}"></td>
@@ -90,6 +90,22 @@
                 </tr>
                 </tbody>
             </table>
+
+            <div class="pagination-div">
+                <span th:if="${page.hasPrevious()}">
+                    <a th:href="@{/employee(pageNo=${page.number-1},pageSize=${page.size})}">Previous</a>
+                </span>
+                    <th:block th:each="i: ${#numbers.sequence(0, page.totalPages - 1)}">
+                        <span th:if="${page.number == i}" class="selected">[[${i}+1]]</span>
+                        <span th:unless="${page.number == i}">
+                         <a th:href="@{/employee(pageNo=${i},pageSize=${page.size})}">[[${i}+1]]</a>
+                    </span>
+                    </th:block>
+                    <span th:if="${page.hasNext()}">
+                    <a th:href="@{/employee(pageNo=${page.number+1},pageSize=${page.size})}">Next</a>
+                </span>
+            </div>
+
         </section>
 
     </div>
