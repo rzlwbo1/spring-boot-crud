@@ -32,6 +32,9 @@ public class EmployeeController {
 
         // default nya all
         if (!q.equals("all")) {
+
+            Page<Employee> employees = this.employeeService.getAllPaginate(pageNo, pageSize, sortField);
+
             System.out.println(q);
         } else {
             // get all datas employee by service
