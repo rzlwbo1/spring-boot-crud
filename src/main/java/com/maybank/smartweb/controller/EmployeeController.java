@@ -26,18 +26,25 @@ public class EmployeeController {
             @RequestParam(value = "pageNo", defaultValue = "0") int pageNo,
             @RequestParam(value = "pageSize", defaultValue = "5") int pageSize,
             @RequestParam(value = "sortField", defaultValue = "id") String sortField,
+            @RequestParam(value = "keyword", defaultValue = "all") String q,
             Model model) {
 
-        // get all datas employee by service
-        Page<Employee> employees = this.employeeService.getAllPaginate(pageNo, pageSize, sortField);
+
+        // default nya all
+        if (!q.equals("all")) {
+            System.out.println(q);
+        } else {
+            // get all datas employee by service
+            Page<Employee> employees = this.employeeService.getAllPaginate(pageNo, pageSize, sortField);
+            model.addAttribute("page", employees);
+        }
 
         String springMessage = "Hello view ini Employee";
 
-        model.addAttribute("page", employees);
         model.addAttribute("springMessage", springMessage);
         model.addAttribute("employeeForm", new Employee());
 
-        System.out.println(employees);
+//        System.out.println(data);
         return "employee";
     }
 

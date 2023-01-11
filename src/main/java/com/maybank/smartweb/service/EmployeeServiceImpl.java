@@ -47,5 +47,11 @@ public class EmployeeServiceImpl implements EmployeeService{
         return this.employeeRepo.findById(id);
     }
 
+    @Override
+    public List<Employee> searchEmployees(String query) {
+        List<Employee> employees = this.employeeRepo.searchEmployees(query);
+        return employees;
+    }
+
 
 }

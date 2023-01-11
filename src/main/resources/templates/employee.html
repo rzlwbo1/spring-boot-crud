@@ -65,6 +65,12 @@
             </form>
         </div>
 
+        <section>
+            <form th:action="@{/employee}" method="get">
+                <input type="text" placeholder="Search data" name="keyword">
+                <button type="submit">Cari</button>
+            </form>
+        </section>
 
         <section id="table-datas" class="mt-6 mb-5">
             <table class="table is-hoverable is-fullwidth" >
