@@ -6,12 +6,11 @@ import com.maybank.smartweb.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
@@ -37,13 +36,38 @@ public class EmployeeController {
         return "employee";
     }
 
+
+    // handle save data dan edit data
     @PostMapping("/save")
-    public String save(Employee employee, RedirectAttributes attributes) {
+    public String save(@Valid @ModelAttribute("employeeForm") Employee employeeForm, BindingResult result, RedirectAttributes attributes, Model model) {
+
+        // kalo ada error dari inputan
+        if (result.hasErrors()) {
+
+            List<Employee> employees = this.employeeService.getAll();
+            model.addAttribute("employees", employees);
+
+            return "employee";
+        }
+
         // save data by service
-        this.employeeService.save(employee);
+        this.employeeService.save(employeeForm);
         attributes.addFlashAttribute("success", "Berhasil insert");
         return "redirect:/employee";
     }
+
+
+    // handle form edit
+    @GetMapping("/edit")
+    public String edit(@RequestParam("id") Long id, Model model) {
+
+        Optional<Employee> employee = this.employeeService.getEmployeeById(id);
+        model.addAttribute("employeeForm", employee);
+
+        return "edit-employee";
+    }
+
+
 
     @GetMapping("/delete")
     public String delete(@RequestParam("id") Long id, RedirectAttributes attributes) {
