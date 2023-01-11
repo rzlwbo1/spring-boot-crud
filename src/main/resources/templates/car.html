@@ -3,22 +3,107 @@
 <head>
     <meta charset="UTF-8">
     <title>Car Page</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
 </head>
-<body>
+<body class="mx-5 has-text-black">
 
-  <p>Carrrr woiii</p>
+  <h2 th:text="${msg}" class="title is-2"></h2>
+  <div id="data-cars" class="container">
 
-  <p th:text="${msg}"></p>
-  <div id="container">
-      <label>Pabrikan : </label>
-      <span th:text="${car.pabrikan}"></span><br/>
-      <label>Tipe : </label>
-      <span th:text="${car.type}"></span><br/>
-      <label>Harga : </label>
-      <span th:text="${car.price}"></span><br/>
-      <label>Warna : </label>
-      <span th:text="${car.color}"></span><br/>
+      <!-- Message -->
+
+      <div class="notification is-primary is-light" th:if="${success}" style="width: 300px;">
+          <button class="delete"></button>
+          <p th:text="${success}"></p>
+      </div>
+
+
+      <div id="add-employee" class="mt-4" style="width: 30%;">
+          <form th:action="@{/car/save}" method="post" th:object="${carForm}">
+
+              <div class="field">
+                  <label class="label">Pabrikan</label>
+                  <div class="control">
+                      <input class="input" type="text" th:field="*{pabrikan}" required>
+                  </div>
+              </div>
+
+              <div class="field">
+                  <label class="label">Type</label>
+                  <div class="control">
+                      <input class="input" type="text" th:field="*{type}">
+                  </div>
+              </div>
+
+              <div class="field">
+                  <label class="label">Color</label>
+                  <div class="control">
+                      <input class="input" type="text" th:field="*{color}">
+                  </div>
+              </div>
+
+              <div class="field">
+                  <label class="label">Price</label>
+                  <div class="control">
+                      <input class="input" type="text" th:field="*{price}">
+                  </div>
+              </div>
+
+              <button type="submit" class="button is-primary">Save</button>
+
+              <!--                <label>First Name</label>-->
+              <!--                <input type="text" th:text="*{firstName}"/><br/>-->
+              <!--                <label>Last Name</label>-->
+              <!--                <input type="text" th:text="*{lastName}"/><br/>-->
+              <!--                <label>Contact</label>-->
+              <!--                <input type="text" th:text="*{contact}"/><br/>-->
+              <!--                <label>Address</label>-->
+              <!--                <input type="text" th:text="*{address}"/><br/>-->
+              <!--                <button type="submit">Save</button>-->
+          </form>
+      </div>
+
+
+
+      <section id="table-datas" class="mt-3">
+          <table class="table is-hoverable is-fullwidth" >
+              <thead>
+              <tr>
+                  <th>Pabrikan</th>
+                  <th>Color</th>
+                  <th>Type</th>
+                  <th>Price</th>
+                  <th>Aksi</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr th:each="car : ${cars}">
+                  <td th:text="${car.pabrikan}"></td>
+                  <td th:text="${car.type}"></td>
+                  <td th:text="${car.color}"></td>
+                  <td th:text="${car.price}"></td>
+                  <td>
+                      <button class="button is-danger" th:onclick="deleteData('[[${car.id}]]')">delete</button>
+                  </td>
+              </tr>
+              </tbody>
+          </table>
+      </section>
   </div>
 
+  <script inline="javascript">
+        /*<![CDATA[*/
+        var baseUrl = /*[[@{/}]]*/ "";
+        /*]]>*/
+        function deleteData(data) {
+            var conf = confirm("are you sure?")
+            if(conf == true) {
+                window.location = baseUrl + "car/delete?id="+data;
+            }
+
+            return false;
+        }
+  </script>
+  <script src="script.js"></script>
 </body>
 </html>

@@ -1,7 +1,13 @@
 package com.maybank.smartweb.entity;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name = "car")
 public class Car {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String pabrikan;
     private String type;
