@@ -10,5 +10,5 @@ import org.springframework.data.repository.query.Param;
 
 public interface EmployeeRepo extends JpaRepository<Employee, Long> {
     @Query("SELECT firstName FROM Employee WHERE firstName LIKE ':q' ")
-    Page<Employee> searchEmployees(@Param("q") String query, Pageable pageable);
+    Page<Employee> searchEmployees(Pageable pageable, @Param("q") String query);
 }
