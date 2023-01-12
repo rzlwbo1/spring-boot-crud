@@ -14,6 +14,6 @@ public interface EmployeeService {
     public void save(Employee employee);
     public void delete(Employee employee);
     public Optional<Employee> getEmployeeById(Long id);
-    public Page<Employee> getSearchEmployees(int pageNo, int pageSize, String field, String keyword);
+    public Page<Employee> getEmployeesByKeyword(int pageNo, int pageSize, String field, String keyword);
 
 }

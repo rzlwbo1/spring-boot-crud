@@ -24,16 +24,21 @@ public class EmployeeController {
             @RequestParam(value = "pageNo", defaultValue = "0") int pageNo,
             @RequestParam(value = "pageSize", defaultValue = "5") int pageSize,
             @RequestParam(value = "sortField", defaultValue = "id") String sortField,
-            @RequestParam(value = "keyword", defaultValue = "all") String query,
+            @RequestParam(value = "keyword", defaultValue = "all") String keyword,
             Model model) {
 
-        if (!query.equals("all")) {
-            Page<Employee> employeesSearch = this.employeeService.getSearchEmployees(pageNo, pageSize, sortField, query);
-            model.addAttribute("page", employeesSearch);
-        } else {
+        if (keyword.equals("all")) {
+
             // get all datas employee by service
             Page<Employee> employees = this.employeeService.getAllPaginate(pageNo, pageSize, sortField);
             model.addAttribute("page", employees);
+            System.out.println(employees);
+
+        } else {
+            Page<Employee> employeesSearch = this.employeeService.getEmployeesByKeyword(pageNo, pageSize, sortField, keyword);
+            model.addAttribute("page", employeesSearch);
+            System.out.println(employeesSearch);
+            System.out.println(keyword);
         }
 
 

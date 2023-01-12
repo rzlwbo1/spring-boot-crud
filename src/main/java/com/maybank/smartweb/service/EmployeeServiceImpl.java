@@ -46,16 +46,11 @@ public class EmployeeServiceImpl implements EmployeeService{
     }
 
     @Override
-    public Page<Employee> getSearchEmployees(int pageNo, int pageSize, String field, String keyword) {
+    public Page<Employee> getEmployeesByKeyword(int pageNo, int pageSize, String field, String keyword) {
 
-        Pageable paging = PageRequest.of(pageNo, pageSize, Sort.by(field).ascending());
+        PageRequest paging = PageRequest.of(pageNo, pageSize, Sort.by(field).ascending());
 
-        List<Employee> employees = this.employeeRepo.searchEmployees(keyword, paging).getContent();
-
-        Page<Employee> employeePage = new PageImpl<>(employees);
-
-        System.out.println(employees);
-        return employeePage;
+        return this.employeeRepo.findEmployeesByKeyword(paging, keyword);
     }
 
 

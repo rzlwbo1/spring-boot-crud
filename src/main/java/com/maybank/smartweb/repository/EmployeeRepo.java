@@ -9,6 +9,6 @@ import org.springframework.data.repository.query.Param;
 
 
 public interface EmployeeRepo extends JpaRepository<Employee, Long> {
-    @Query("SELECT firstName FROM Employee WHERE firstName LIKE ':q' ")
-    Page<Employee> searchEmployees(Pageable pageable, @Param("q") String query);
+    @Query(value = "SELECT * FROM employee WHERE first_name LIKE %:keyword% OR last_name LIKE %:keyword%", nativeQuery = true)
+    Page<Employee> findEmployeesByKeyword(Pageable pageable, @Param("keyword") String keyword);
 }
