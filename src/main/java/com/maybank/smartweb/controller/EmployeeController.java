@@ -1,7 +1,6 @@
 package com.maybank.smartweb.controller;
 
 import com.maybank.smartweb.entity.Employee;
-import com.maybank.smartweb.repository.EmployeeRepo;
 import com.maybank.smartweb.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -12,7 +11,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
-import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -26,21 +24,18 @@ public class EmployeeController {
             @RequestParam(value = "pageNo", defaultValue = "0") int pageNo,
             @RequestParam(value = "pageSize", defaultValue = "5") int pageSize,
             @RequestParam(value = "sortField", defaultValue = "id") String sortField,
-            @RequestParam(value = "keyword", defaultValue = "all") String q,
+            @RequestParam(value = "keyword", defaultValue = "all") String query,
             Model model) {
 
-
-        // default nya all
-        if (!q.equals("all")) {
-
-            Page<Employee> employees = this.employeeService.getAllPaginate(pageNo, pageSize, sortField);
-
-            System.out.println(q);
+        if (!query.equals("all")) {
+            Page<Employee> employeesSearch = this.employeeService.getSearchEmployees(pageNo, pageSize, sortField, query);
+            model.addAttribute("page", employeesSearch);
         } else {
             // get all datas employee by service
             Page<Employee> employees = this.employeeService.getAllPaginate(pageNo, pageSize, sortField);
             model.addAttribute("page", employees);
         }
+
 
         String springMessage = "Hello view ini Employee";
 

@@ -3,9 +3,7 @@ package com.maybank.smartweb.service;
 import com.maybank.smartweb.entity.Employee;
 import com.maybank.smartweb.repository.EmployeeRepo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -27,7 +25,7 @@ public class EmployeeServiceImpl implements EmployeeService{
     @Override
     public Page<Employee> getAllPaginate(int pageNo, int pageSize, String field) {
 
-        PageRequest paging = PageRequest.of(pageNo, pageSize, Sort.by(field).ascending());
+        Pageable paging = PageRequest.of(pageNo, pageSize, Sort.by(field).ascending());
 
         return this.employeeRepo.findAll(paging);
     }
@@ -48,9 +46,16 @@ public class EmployeeServiceImpl implements EmployeeService{
     }
 
     @Override
-    public List<Employee> searchEmployees(String query) {
-        List<Employee> employees = this.employeeRepo.searchEmployees(query);
-        return employees;
+    public Page<Employee> getSearchEmployees(int pageNo, int pageSize, String field, String keyword) {
+
+        Pageable paging = PageRequest.of(pageNo, pageSize, Sort.by(field).ascending());
+
+        List<Employee> employees = this.employeeRepo.searchEmployees(keyword, paging).getContent();
+
+        Page<Employee> employeePage = new PageImpl<>(employees);
+
+        System.out.println(employees);
+        return employeePage;
     }
 
 

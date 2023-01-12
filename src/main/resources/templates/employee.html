@@ -67,7 +67,7 @@
 
         <section>
             <form th:action="@{/employee}" method="get">
-                <input type="text" placeholder="Search data" name="keyword">
+                <input type="text" placeholder="Search data" th:name="keyword">
                 <button type="submit">Cari</button>
             </form>
         </section>
