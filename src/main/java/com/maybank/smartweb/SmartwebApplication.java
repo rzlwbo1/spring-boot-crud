@@ -38,15 +38,15 @@ public class SmartwebApplication implements ApplicationRunner {
 		employee.setLastName("Hawa");
 		employee.setContact("1902312");
 		employee.setAddress("Surga");
-
-
-		Car car = new Car();
-		car.setPabrikan("Honda Jazz");
-		car.setType("Matic");
-		car.setColor("Blue");
-		car.setPrice(100000.0);
-
-		this.carRepo.save(car);
+//
+//
+//		Car car = new Car();
+//		car.setPabrikan("Honda Jazz");
+//		car.setType("Matic");
+//		car.setColor("Blue");
+//		car.setPrice(100000.0);
+//
+//		this.carRepo.save(car);
 		this.employeeRepo.save(employee);
 
 	}
