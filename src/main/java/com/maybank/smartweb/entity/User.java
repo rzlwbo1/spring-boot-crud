@@ -20,7 +20,7 @@ public class User {
     @NotNull
     @NotEmpty
     @NotBlank
-    @Size(min = 4, max = 30)
+    @Size(min = 4, max = 100)
     private String password;
     @Email
     @Column(unique = true)
@@ -29,7 +29,7 @@ public class User {
     private boolean enabled = true;
 
     // relasi ke role
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_role",
             joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))

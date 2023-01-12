@@ -22,6 +22,7 @@ public class CarContoller {
     @Autowired
     private CarService carService;
 
+
     @GetMapping
     public String index(Model model) {
 
@@ -55,6 +56,4 @@ public class CarContoller {
 
         return "redirect:/car";
     }
-
-
 }

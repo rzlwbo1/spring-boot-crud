@@ -1,5 +1,7 @@
 package com.maybank.smartweb.service;
 
+import com.maybank.smartweb.entity.Role;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -16,23 +18,36 @@ import java.util.List;
 public class CustomerUserDetailService implements UserDetailsService {
 
     // kalo auth disini akan buat usernya ketika ada request
+    @Autowired
+    private LoginService loginService;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
-        // cara baca
-        // si admin user nya admdin dan pw nya 1234 , dan roles nya regular dan admin
-
+        com.maybank.smartweb.entity.User userApp = this.loginService.findUserByUsername(username);
         List<GrantedAuthority> auths = new ArrayList<>();
-        auths.add(new SimpleGrantedAuthority("regular")); // roles
-        auths.add(new SimpleGrantedAuthority("admin"));
 
-        // akun admin
-        UserDetails user = User.withUsername("admin")
-                .password(new BCryptPasswordEncoder().encode("1234"))
-                .authorities(auths)
-                .build();
+        if (userApp != null) {
+            List<Role> roles = userApp.getRoles();
+            if (roles.size() > 0) {
+                for (Role role: roles) {
+                    // cara baca
+                    // si admin user nya admdin dan pw nya 1234 , dan roles nya regular dan admin
 
-        return user;
+                    auths.add(new SimpleGrantedAuthority(role.getRole())); // roles
+                    auths.add(new SimpleGrantedAuthority(role.getRole()));
+                }
+            }
+
+            // akun admin
+            UserDetails user = User.withUsername(userApp.getUsername())
+                    .password(userApp.getPassword())
+                    .authorities(auths)
+                    .build();
+            return user;
+        } else {
+            throw new UsernameNotFoundException("User not found");
+        }
+
     }
 }
