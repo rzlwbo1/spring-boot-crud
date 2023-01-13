@@ -6,6 +6,8 @@ import com.maybank.smartweb.repository.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class LoginService {
 
@@ -18,4 +20,11 @@ public class LoginService {
         return this.userRepo.findByUsername(username);
     }
 
+    public void addUser(User user) {
+        this.userRepo.save(user);
+    }
+
+    public List<User> findAll() {
+        return this.userRepo.findAll();
+    }
 }
