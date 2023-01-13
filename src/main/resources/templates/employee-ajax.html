@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Home Page</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.1/css/all.min.css"
+          integrity="sha512-gMjQeDaELJ0ryCI+FtItusU9MkAifCZcGq789FrzkiM49D8lbDhoaUaIX4ASU187wofMNlgBJ4ckbrXM9sE6Pg=="
+          crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.css">
+</head>
+<body class="mx-5 has-text-black">
+
+    <h3>MVC Spring</h3>
+    <p th:text="${springMessage}"></p>
+    <div id="data-collection" class="container">
+
+        <!-- Message -->
+
+        <div class="notification is-primary is-light" th:if="${success}" style="width: 300px;">
+            <button class="delete"></button>
+             <p th:text="${success}"></p>
+        </div>
+
+
+        <div id="add-employee" class="mt-4" style="width: 30%;">
+            <form th:action="@{/employee/save}" method="post" th:object="${employeeForm}">
+
+                <div class="field">
+                    <label class="label">First Name</label>
+                    <div class="control has-icons-left">
+                        <input class="input" type="text" th:field="*{firstName}">
+                        <span class="icon is-small is-left">
+                            <i class="far fa-user"></i>
+                        </span>
+                    </div>
+                    <p class="help is-danger" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></p>
+                </div>
+
+                <div class="field">
+                    <label class="label">last Name</label>
+                    <div class="control">
+                        <input class="input" type="text" th:field="*{lastName}">
+                    </div>
+                    <p class="help is-danger" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></p>
+                </div>
+
+                <div class="field">
+                    <label class="label">Contact</label>
+                    <div class="control">
+                        <input class="input" type="text" th:field="*{contact}">
+                    </div>
+                    <p class="help is-danger" th:if="${#fields.hasErrors('contact')}" th:errors="*{contact}"></p>
+                </div>
+
+                <div class="field">
+                    <label class="label">Address</label>
+                    <div class="control">
+                        <input class="input" type="text" th:field="*{address}">
+                    </div>
+                    <p class="help is-danger" th:if="${#fields.hasErrors('address')}" th:errors="*{address}"></p>
+                </div>
+
+                <button type="submit" class="button is-primary">Save</button>
+
+            </form>
+        </div>
+
+        <section>
+            <form th:action="@{/employee}" method="get">
+                <input type="text" placeholder="Search data" th:name="keyword">
+                <button type="submit">Cari</button>
+            </form>
+        </section>
+
+        <section id="table-datas" class="mt-6 mb-5">
+            <table class="table is-hoverable is-fullwidth" >
+                <thead>
+                <tr class="has-background-info">
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Contact</th>
+                    <th>Address</th>
+                    <th>Aksi</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="employee : ${employees}">
+                    <td th:text="${employee.firstName}"></td>
+                    <td th:text="${employee.lastName}"></td>
+                    <td th:text="${employee.contact}"></td>
+                    <td th:text="${employee.address}"></td>
+                    <td>
+                        <button class="button is-danger" th:onclick="deleteData('[[${employee.id}]]')">delete</button>
+                        <a class="button is-warning" th:href="@{'/employee/edit?id='+${employee.id}}">Edit</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+
+        </section>
+
+    </div>
+
+
+    <script inline="javascript">
+        /*<![CDATA[*/
+        var baseUrl = /*[[@{/}]]*/ "";
+        /*]]>*/
+        function deleteData(data) {
+            var conf = confirm("are you sure?")
+            if(conf == true) {
+                window.location = baseUrl + "employee/delete?id="+data;
+            }
+
+            return false;
+        }
+    </script>
+    <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -20,6 +21,17 @@ public class EmployeeController {
     private EmployeeService employeeService;
 
     @GetMapping
+    public String index(Model model) {
+        List<Employee> employees = this.employeeService.getAll();
+
+        model.addAttribute("employees", employees);
+        model.addAttribute("employeeForm", new Employee());
+        model.addAttribute("springMessage", "Ajax pagination");
+
+        return "employee-ajax";
+    }
+
+    //@GetMapping
     public String index(
             @RequestParam(value = "pageNo", defaultValue = "0") int pageNo,
             @RequestParam(value = "pageSize", defaultValue = "5") int pageSize,
