@@ -35,9 +35,15 @@ public class SmartwebApplication implements ApplicationRunner {
 
 		Employee employee = new Employee();
 		employee.setFirstName("Adam");
-		employee.setLastName("Hawa");
+		employee.setLastName("Bowo");
 		employee.setContact("1902312");
 		employee.setAddress("Surga");
+
+		Employee employee2 = new Employee();
+		employee2.setFirstName("Hawa");
+		employee2.setLastName("Hawi");
+		employee2.setContact("1902312");
+		employee2.setAddress("Surga");
 //
 //
 //		Car car = new Car();
@@ -48,6 +54,7 @@ public class SmartwebApplication implements ApplicationRunner {
 //
 //		this.carRepo.save(car);
 		this.employeeRepo.save(employee);
+		this.employeeRepo.save(employee2);
 
 	}
 }

@@ -74,8 +74,8 @@
             </form>
         </section>
 
-        <section id="table-datas" class="mt-6 mb-5">
-            <table class="table is-hoverable is-fullwidth" >
+        <section id="table-datas" class="mt-6 mb-5 display">
+            <table class="table is-hoverable is-fullwidth" id="table-id">
                 <thead>
                 <tr class="has-background-info">
                     <th>First Name</th>
@@ -98,7 +98,6 @@
                 </tr>
                 </tbody>
             </table>
-
         </section>
 
     </div>
@@ -120,5 +119,10 @@
     <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.js"></script>
     <script src="script.js"></script>
+    <script>
+        $(document).ready( function () {
+            $('#table-id').DataTable();
+        } );
+    </script>
 </body>
 </html>

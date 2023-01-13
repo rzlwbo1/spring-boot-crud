@@ -37,6 +37,7 @@ public class MyAuth {
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.authorizeRequests().antMatchers("/employee").hasAnyAuthority("Regular");
         httpSecurity.authorizeRequests().antMatchers("/car").hasAnyAuthority("Admin");
+        httpSecurity.authorizeRequests().antMatchers("/api/*").anonymous();
         httpSecurity.authorizeRequests().anyRequest().authenticated();
         httpSecurity.authorizeRequests().and().formLogin();
 
