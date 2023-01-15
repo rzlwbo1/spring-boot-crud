@@ -6,16 +6,19 @@
 </head>
 <body>
 
+  <h3 th:if="${success}" th:text="${success}"></h3>
+
   <section>
-    <form th:action="@{/regis/save}" method="post" th:object="${userForm}">
+    <form th:action="@{/register/save}" method="post" th:object="${userForm}">
       <input type="text" placeholder="username" th:field="*{username}">
       <br>
+      <p class="help is-danger" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></p>
       <input type="email" placeholder="email" th:field="*{email}">
       <br>
-      <input type="text" placeholder="roles" th:field="*{roles}">
-      <br>
+      <p class="help is-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></p>
       <input type="password" placeholder="password" th:field="*{password}">
       <br>
+      <p class="help is-danger" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></p>
 
       <button type="submit">Save</button>
     </form>

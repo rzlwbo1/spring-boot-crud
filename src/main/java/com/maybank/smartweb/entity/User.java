@@ -23,6 +23,7 @@ public class User {
     @Size(min = 4, max = 100)
     private String password;
     @Email
+    @NotEmpty
     @Column(unique = true)
     private String email;
 
@@ -83,5 +84,16 @@ public class User {
 
     public void setRoles(List<Role> roles) {
         this.roles = roles;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", email='" + email + '\'' +
+                ", enabled=" + enabled +
+                ", roles=" + roles +
+                '}';
     }
 }
