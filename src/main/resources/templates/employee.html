@@ -103,9 +103,9 @@
                 </span>
                     <th:block th:each="i: ${#numbers.sequence(0, page.totalPages - 1)}">
                         <span th:if="${page.number == i}" class="selected">[[${i}+1]]</span>
-                        <span th:unless="${page.number == i}">
-                         <a th:href="@{/employee(pageNo=${i},pageSize=${page.size})}">[[${i}+1]]</a>
-                    </span>
+                        <span th:if="${i != -1 && (page.number == i+1 || page.number == i-1)}">
+                            <a th:href="@{/employee(pageNo=${i},pageSize=${page.size})}">[[${i}+1]]</a>
+                        </span>
                     </th:block>
                     <span th:if="${page.hasNext()}">
                     <a th:href="@{/employee(pageNo=${page.number+1},pageSize=${page.size})}">Next</a>

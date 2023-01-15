@@ -34,7 +34,7 @@ public class EmployeeController {
     //@GetMapping
     public String index(
             @RequestParam(value = "pageNo", defaultValue = "0") int pageNo,
-            @RequestParam(value = "pageSize", defaultValue = "5") int pageSize,
+            @RequestParam(value = "pageSize", defaultValue = "2") int pageSize,
             @RequestParam(value = "sortField", defaultValue = "id") String sortField,
             @RequestParam(value = "keyword", defaultValue = "all") String keyword,
             Model model) {
@@ -70,7 +70,7 @@ public class EmployeeController {
                        BindingResult result,
                        RedirectAttributes attributes,
                        @RequestParam(value = "pageNo", defaultValue = "0") int pageNo,
-                       @RequestParam(value = "pageSize", defaultValue = "5") int pageSize,
+                       @RequestParam(value = "pageSize", defaultValue = "2") int pageSize,
                        @RequestParam(value = "sortField", defaultValue = "id") String sortField,
                        Model model) {
 
