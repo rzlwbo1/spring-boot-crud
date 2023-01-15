@@ -3,26 +3,47 @@
 <head>
     <meta charset="UTF-8">
     <title>Register</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
 </head>
-<body>
+<body class="has-background-white-ter">
 
-  <h3 th:if="${success}" th:text="${success}"></h3>
+  <main class="container">
+    <div class="notification is-info" th:if="${success}" style="width: 30%;">
+      <button class="delete"></button>
+      <p th:text="${success}"></p>
+    </div>
+    <section class="columns mt-6 is-centered">
+      <div class="column is-half">
+        <h1 class="title is-2">Register Form</h1>
+        <form th:action="@{/register/save}" method="post" th:object="${userForm}" class="box">
 
-  <section>
-    <form th:action="@{/register/save}" method="post" th:object="${userForm}">
-      <input type="text" placeholder="username" th:field="*{username}">
-      <br>
-      <p class="help is-danger" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></p>
-      <input type="email" placeholder="email" th:field="*{email}">
-      <br>
-      <p class="help is-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></p>
-      <input type="password" placeholder="password" th:field="*{password}">
-      <br>
-      <p class="help is-danger" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></p>
+          <div class="field">
+            <div class="control">
+              <input class="input" type="text" placeholder="username" th:field="*{username}">
+            </div>
+            <p class="help is-danger" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></p>
+          </div>
 
-      <button type="submit">Save</button>
-    </form>
-  </section>  
+          <div class="field">
+            <div class="control">
+              <input class="input" type="email" placeholder="email" th:field="*{email}">
+            </div>
+            <p class="help is-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></p>
+          </div>
 
+          <div class="field">
+            <div class="control">
+              <input class="input" type="password" placeholder="password" th:field="*{password}">
+            </div>
+            <p class="help is-danger" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></p>
+          </div>
+
+          <button type="submit" class="button is-link is-fullwidth has-text-weight-bold">Register</button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
 </body>
 </html>
